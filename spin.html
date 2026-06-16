@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Simple Wheel</title>
+<title>Clean Wheel</title>
 
 <style>
 body{
@@ -16,84 +17,86 @@ body{
     overflow:hidden;
 }
 
-.container{
-    width:90vmin;
-    height:90vmin;
-    max-width:320px;
-    max-height:320px;
+/* responsive circle */
+.wheel-box{
+    width:min(90vw,320px);
+    height:min(90vw,320px);
     position:relative;
 }
 
+/* pointer */
+.pointer{
+    position:absolute;
+    top:-12px;
+    left:50%;
+    transform:translateX(-50%);
+    width:0;
+    height:0;
+    border-left:10px solid transparent;
+    border-right:10px solid transparent;
+    border-bottom:18px solid white;
+    z-index:10;
+}
+
+/* wheel */
 .wheel{
     width:100%;
     height:100%;
     border-radius:50%;
     position:relative;
-    border:6px solid #fff3;
-    transition:transform 5s ease-out;
+    transition:transform 5s cubic-bezier(0.12,0.8,0.1,1);
 }
 
-/* small clean segments */
+/* segment base */
 .segment{
     position:absolute;
     width:50%;
     height:50%;
-    left:50%;
     top:50%;
+    left:50%;
     transform-origin:0% 0%;
     display:flex;
     justify-content:center;
     align-items:center;
-    font-size:9px;
+    font-size:10px;
     color:white;
-    text-align:center;
 }
 
 /* colors */
-.s1{background:#6366f1;}
-.s2{background:#8b5cf6;}
-.s3{background:#ec4899;}
-.s4{background:#14b8a6;}
-.s5{background:#f59e0b;}
-.s6{background:#22c55e;}
-.s7{background:#3b82f6;}
-.s8{background:#ef4444;}
-.s9{background:#a855f7;}
-.s10{background:#ffd700; color:#000; font-weight:bold;}
-
-button{
-    position:absolute;
-    bottom:-70px;
-    left:50%;
-    transform:translateX(-50%);
-    padding:10px 20px;
-    border:none;
-    border-radius:20px;
-    font-weight:bold;
-}
+.c1{background:#6366f1;}
+.c2{background:#8b5cf6;}
+.c3{background:#ec4899;}
+.c4{background:#14b8a6;}
+.c5{background:#f59e0b;}
+.c6{background:#22c55e;}
+.c7{background:#3b82f6;}
+.c8{background:#ef4444;}
+.c9{background:#a855f7;}
+.c10{background:#ffd700;color:#000;font-weight:bold;}
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="wheel-box">
+
+<div class="pointer"></div>
 
 <div class="wheel" id="wheel">
 
-<div class="segment s1" style="transform:rotate(0deg)">Kurti</div>
-<div class="segment s2" style="transform:rotate(36deg)">Jhumka</div>
-<div class="segment s3" style="transform:rotate(72deg)">Dress</div>
-<div class="segment s4" style="transform:rotate(108deg)">Ring</div>
-<div class="segment s5" style="transform:rotate(144deg)">Keychain</div>
-<div class="segment s6" style="transform:rotate(180deg)">Shawarma</div>
-<div class="segment s7" style="transform:rotate(216deg)">Hug</div>
-<div class="segment s8" style="transform:rotate(252deg)">Choco</div>
-<div class="segment s9" style="transform:rotate(288deg)">Care</div>
-<div class="segment s10" style="transform:rotate(324deg)">ADNAN</div>
+<!-- perfectly aligned 10 segments -->
+<div class="segment c1" style="transform:rotate(0deg) translateY(-50%) rotate(0deg)">Kurti</div>
+<div class="segment c2" style="transform:rotate(36deg) translateY(-50%) rotate(-36deg)">Jhumka</div>
+<div class="segment c3" style="transform:rotate(72deg) translateY(-50%) rotate(-72deg)">Dress</div>
+<div class="segment c4" style="transform:rotate(108deg) translateY(-50%) rotate(-108deg)">Ring</div>
+<div class="segment c5" style="transform:rotate(144deg) translateY(-50%) rotate(-144deg)">Keychain</div>
+<div class="segment c6" style="transform:rotate(180deg) translateY(-50%) rotate(-180deg)">Shawarma</div>
+<div class="segment c7" style="transform:rotate(216deg) translateY(-50%) rotate(-216deg)">Hug</div>
+<div class="segment c8" style="transform:rotate(252deg) translateY(-50%) rotate(-252deg)">Choco</div>
+<div class="segment c9" style="transform:rotate(288deg) translateY(-50%) rotate(-288deg)">Care</div>
+<div class="segment c10" style="transform:rotate(324deg) translateY(-50%) rotate(-324deg)">ADNAN</div>
 
 </div>
-
-<button onclick="spin()">SPIN</button>
 
 </div>
 
@@ -116,7 +119,9 @@ function spin(){
     wheel.style.transform = `rotate(${rotation}deg)`;
 }
 
+document.body.onclick = spin;
+
 </script>
 
 </body>
-</html> 
+</html>
