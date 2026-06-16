@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scratch Cards</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#0f172a,#1e1b4b,#4c1d95);
+    color:white;
+    padding:20px;
+    text-align:center;
+}
+
+h1{
+    margin:20px 0;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+    max-width:700px;
+    margin:auto;
+}
+
+.card{
+    position:relative;
+    height:140px;
+    border-radius:15px;
+    overflow:hidden;
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.15);
+}
+
+/* hidden message */
+.message{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    padding:10px;
+    font-size:13px;
+    width:90%;
+    line-height:1.4;
+    color:white;
+    z-index:1;
+}
+
+/* scratch layer */
+canvas{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:2;
+}
+</style>
+</head>
+
+<body>
+
+<h1>🎟 Scratch to Reveal</h1>
+<p>Gently rub the card to reveal the message ❤️</p>
+
+<div class="grid">
+
+<div class="card">
+<div class="message">Even on your worst days, I’m not going anywhere.</div>
+<canvas></canvas>
+</div>
+
+<div class="card">
+<div class="message">You don’t have to carry everything alone.</div>
+<canvas></canvas>
+</div>
+
+<div class="card">
+<div class="message">I’m always here if you need to talk.</div>
+<canvas></canvas>
+</div>
+
+<div class="card">
+<div class="message">Your feelings are always valid.</div>
+<canvas></canvas>
+</div>
+
+<div class="card">
+<div class="message">I care about your peace more than anything.</div>
+<canvas></canvas>
+</div>
+
+<div class="card">
+<div class="message">Please don’t overthink alone, I’m here.</div>
+<canvas></canvas>
+</div>
+
+<div class="card">
+<div class="message">Crying doesn’t make you weak at all.</div>
+<canvas></canvas>
+</div>
+
+<div class="card">
+<div class="message">I will always choose kindness for you.</div>
+<canvas></canvas>
+</div>
+
+<div class="card">
+<div class="message">Our future will be calm, not complicated.</div>
+<canvas></canvas>
+</div>
+
+<div class="card">
+<div class="message">One day you’ll feel light again ❤️</div>
+<canvas></canvas>
+</div>
+
+</div>
+
+<script>
+document.querySelectorAll(".card").forEach(initScratch);
+
+function initScratch(card){
+    const canvas = card.querySelector("canvas");
+    const ctx = canvas.getContext("2d");
+
+    function resize(){
+        canvas.width = card.offsetWidth;
+        canvas.height = card.offsetHeight;
+
+        ctx.fillStyle = "#2b2b2b";
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+
+        ctx.fillStyle = "white";
+        ctx.font = "14px Poppins";
+        ctx.textAlign = "center";
+        ctx.fillText("Scratch Here", canvas.width/2, canvas.height/2);
+    }
+
+    resize();
+
+    let isDrawing = false;
+
+    function scratch(e){
+        const rect = canvas.getBoundingClientRect();
+        const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+        const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
+
+        ctx.globalCompositeOperation = "destination-out";
+        ctx.beginPath();
+        ctx.arc(x,y,20,0,Math.PI*2);
+        ctx.fill();
+    }
+
+    canvas.addEventListener("mousedown", ()=> isDrawing=true);
+    canvas.addEventListener("mouseup", ()=> isDrawing=false);
+    canvas.addEventListener("mousemove", (e)=> isDrawing && scratch(e));
+
+    canvas.addEventListener("touchstart", ()=> isDrawing=true);
+    canvas.addEventListener("touchend", ()=> isDrawing=false);
+    canvas.addEventListener("touchmove", (e)=> scratch(e));
+}
+</script>
+
+</body>
+</html>
