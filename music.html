@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Music?</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#1e293b,#3b0764,#4c1d95);
+    overflow:hidden;
+}
+
+.card{
+    width:90%;
+    max-width:500px;
+    text-align:center;
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(15px);
+    border-radius:25px;
+    padding:40px 30px;
+    color:white;
+    border:1px solid rgba(255,255,255,0.15);
+}
+
+h1{
+    margin-bottom:20px;
+    font-size:30px;
+}
+
+p{
+    line-height:1.8;
+    color:#e5e7eb;
+    margin-bottom:30px;
+}
+
+.buttons{
+    display:flex;
+    gap:15px;
+    justify-content:center;
+    flex-wrap:wrap;
+}
+
+button{
+    border:none;
+    padding:14px 25px;
+    border-radius:50px;
+    font-size:16px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.yes{
+    background:white;
+    color:#4c1d95;
+    font-weight:600;
+}
+
+.no{
+    background:transparent;
+    border:1px solid white;
+    color:white;
+}
+
+button:hover{
+    transform:translateY(-3px);
+}
+</style>
+</head>
+<body>
+
+<div class="card">
+
+<h1>Before We Continue... 🎵</h1>
+
+<p>
+Every journey feels a little different with music.
+<br><br>
+Would you like to keep me company with a song while you're here?
+</p>
+
+<div class="buttons">
+<button class="yes" onclick="playMusic()">
+🎵 Yes, Play Music
+</button>
+
+<button class="no" onclick="skipMusic()">
+Continue Without Music
+</button>
+</div>
+
+<audio id="haareya">
+    <source src="haareya.mp3" type="audio/mpeg">
+</audio>
+
+</div>
+
+<script>
+
+function playMusic(){
+    document.getElementById("haareya").play();
+
+    setTimeout(() => {
+        window.location.href = "q1.html";
+    }, 2000);
+}
+
+function skipMusic(){
+    window.location.href = "q1.html";
+}
+
+</script>
+
+</body>
+</html>
