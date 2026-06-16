@@ -3,85 +3,37 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gift App</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>Simple Wheel</title>
 
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Poppins',sans-serif;
-}
-
 body{
+    margin:0;
     height:100vh;
-    width:100vw;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#0f172a;
     overflow:hidden;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:radial-gradient(circle at top,#1e1b4b,#0f172a);
-    color:white;
 }
 
-/* APP CARD */
-.app{
-    width:100%;
-    max-width:380px;
-    height:100vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    padding:20px;
-}
-
-/* HEADER */
-h1{
-    font-size:22px;
-    margin-bottom:6px;
-}
-
-.sub{
-    font-size:12px;
-    color:#cbd5e1;
-    margin-bottom:20px;
-}
-
-/* WHEEL */
 .container{
+    width:90vmin;
+    height:90vmin;
+    max-width:320px;
+    max-height:320px;
     position:relative;
-    width:280px;
-    height:280px;
-}
-
-.pointer{
-    position:absolute;
-    top:-16px;
-    left:50%;
-    transform:translateX(-50%);
-    width:0;
-    height:0;
-    border-left:12px solid transparent;
-    border-right:12px solid transparent;
-    border-bottom:20px solid white;
-    z-index:5;
-    filter:drop-shadow(0 0 5px white);
 }
 
 .wheel{
     width:100%;
     height:100%;
     border-radius:50%;
-    border:8px solid rgba(255,255,255,0.15);
-    box-shadow:0 10px 30px rgba(0,0,0,0.4);
     position:relative;
-    transition:transform 6s cubic-bezier(0.12,0.85,0.1,1);
+    border:6px solid #fff3;
+    transition:transform 5s ease-out;
 }
 
-/* SEGMENTS */
+/* small clean segments */
 .segment{
     position:absolute;
     width:50%;
@@ -92,10 +44,12 @@ h1{
     display:flex;
     justify-content:center;
     align-items:center;
-    font-size:10px;
+    font-size:9px;
     color:white;
+    text-align:center;
 }
 
+/* colors */
 .s1{background:#6366f1;}
 .s2{background:#8b5cf6;}
 .s3{background:#ec4899;}
@@ -105,188 +59,61 @@ h1{
 .s7{background:#3b82f6;}
 .s8{background:#ef4444;}
 .s9{background:#a855f7;}
-.s10{
-    background:linear-gradient(45deg,#ffd700,#ffb800);
-    font-weight:700;
-    animation:glow 1.5s infinite;
-}
+.s10{background:#ffd700; color:#000; font-weight:bold;}
 
-@keyframes glow{
-    0%{filter:brightness(1);}
-    50%{filter:brightness(1.5);}
-    100%{filter:brightness(1);}
-}
-
-/* BUTTON */
 button{
-    margin-top:25px;
-    padding:12px 26px;
-    border:none;
-    border-radius:30px;
-    font-size:15px;
-    cursor:pointer;
-    font-weight:600;
-    background:white;
-    color:#1e1b4b;
-    box-shadow:0 5px 15px rgba(0,0,0,0.3);
-}
-
-button:disabled{
-    opacity:0.5;
-}
-
-/* RESULT MODAL */
-.overlay{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,0.85);
-    display:none;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    padding:20px;
-    animation:fade 0.3s ease;
-}
-
-@keyframes fade{
-    from{opacity:0;}
-    to{opacity:1;}
-}
-
-.card{
-    background:rgba(255,255,255,0.08);
-    border:1px solid rgba(255,255,255,0.2);
-    padding:22px;
-    border-radius:18px;
-    max-width:300px;
-    animation:pop 0.4s ease;
-}
-
-@keyframes pop{
-    from{transform:scale(0.7);opacity:0;}
-    to{transform:scale(1);opacity:1;}
-}
-
-.title{
-    font-size:22px;
-    margin-bottom:10px;
-}
-
-.claim{
-    margin-top:15px;
-    padding:10px 18px;
+    position:absolute;
+    bottom:-70px;
+    left:50%;
+    transform:translateX(-50%);
+    padding:10px 20px;
     border:none;
     border-radius:20px;
-    cursor:pointer;
-    font-weight:600;
-}
-
-/* subtle bottom app feel */
-.footer{
-    position:absolute;
-    bottom:10px;
-    font-size:11px;
-    color:#64748b;
+    font-weight:bold;
 }
 </style>
 </head>
 
 <body>
 
-<div class="app">
-
-<h1>🎡 Gift Wheel</h1>
-<div class="sub">3 spins only • Tap and enjoy</div>
-
 <div class="container">
-<div class="pointer"></div>
 
 <div class="wheel" id="wheel">
 
-<div class="segment s1" style="transform:rotate(0deg)">👗 Kurti</div>
-<div class="segment s2" style="transform:rotate(36deg)">💎 Jhumka</div>
-<div class="segment s3" style="transform:rotate(72deg)">👗 Dress</div>
-<div class="segment s4" style="transform:rotate(108deg)">💍 Ring</div>
-<div class="segment s5" style="transform:rotate(144deg)">🔑 Keychain</div>
-<div class="segment s6" style="transform:rotate(180deg)">🍗 Shawarma</div>
-<div class="segment s7" style="transform:rotate(216deg)">🤗 Hug</div>
-<div class="segment s8" style="transform:rotate(252deg)">🍫 Chocolate</div>
-<div class="segment s9" style="transform:rotate(288deg)">🌸 Care</div>
-<div class="segment s10" style="transform:rotate(324deg)">💎 ADNAN</div>
-
-</div>
-</div>
-
-<button id="btn" onclick="spin()">SPIN 🎯 (3)</button>
-
-<div class="footer">Made with care ❤️</div>
+<div class="segment s1" style="transform:rotate(0deg)">Kurti</div>
+<div class="segment s2" style="transform:rotate(36deg)">Jhumka</div>
+<div class="segment s3" style="transform:rotate(72deg)">Dress</div>
+<div class="segment s4" style="transform:rotate(108deg)">Ring</div>
+<div class="segment s5" style="transform:rotate(144deg)">Keychain</div>
+<div class="segment s6" style="transform:rotate(180deg)">Shawarma</div>
+<div class="segment s7" style="transform:rotate(216deg)">Hug</div>
+<div class="segment s8" style="transform:rotate(252deg)">Choco</div>
+<div class="segment s9" style="transform:rotate(288deg)">Care</div>
+<div class="segment s10" style="transform:rotate(324deg)">ADNAN</div>
 
 </div>
 
-<!-- MODAL -->
-<div class="overlay" id="overlay">
-    <div class="card">
-        <div class="title" id="title"></div>
-        <div id="msg"></div>
-        <button class="claim" onclick="closeModal()">OK / CLAIM</button>
-    </div>
+<button onclick="spin()">SPIN</button>
+
 </div>
 
 <script>
 
-let spins = 3;
 let rotation = 0;
 const angle = 360/10;
 
-const wheel = document.getElementById("wheel");
-const overlay = document.getElementById("overlay");
-const title = document.getElementById("title");
-const msg = document.getElementById("msg");
-
 function spin(){
 
-    if(spins <= 0) return;
+    const wheel = document.getElementById("wheel");
 
-    spins--;
+    let index = Math.floor(Math.random()*10);
 
-    let index;
-
-    if(spins === 0){
-        index = 9;
-    }else{
-        index = Math.floor(Math.random()*9);
-    }
-
-    const extra = 6*360;
+    const extra = 5*360;
     const target = (360 - index*angle) - (angle/2);
 
     rotation += extra + target;
+
     wheel.style.transform = `rotate(${rotation}deg)`;
-
-    setTimeout(()=>{
-
-        overlay.style.display="flex";
-
-        if(index === 9){
-            title.innerHTML="🎉 CONGRATULATIONS";
-            msg.innerHTML="💎 Premium Gift: <b>Adnan</b><br><br>A special person who stays, cares and supports you in his own way 🤍";
-        }else{
-            title.innerHTML="🎁 You Won";
-            msg.innerHTML=document.querySelectorAll(".segment")[index].innerText;
-        }
-
-        document.getElementById("btn").innerText =
-            spins === 0 ? "No Spins Left" : `SPIN 🎯 (${spins})`;
-
-        if(spins === 0){
-            document.getElementById("btn").disabled = true;
-        }
-
-    },6000);
-}
-
-function closeModal(){
-    overlay.style.display="none";
 }
 
 </script>
