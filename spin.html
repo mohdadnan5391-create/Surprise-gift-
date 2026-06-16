@@ -1,8 +1,9 @@
+ 
 <!DOCTYPE html>
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wheel Fix</title>
+<title>Gift Boxes</title>
 
 <style>
 body{
@@ -12,113 +13,75 @@ body{
     justify-content:center;
     align-items:center;
     background:#0f172a;
-    overflow:hidden;
-}
-
-/* PERFECT FIT CONTAINER */
-.box{
-    width:90vmin;
-    height:90vmin;
-    max-width:320px;
-    max-height:320px;
-    position:relative;
-}
-
-/* POINTER */
-.pointer{
-    position:absolute;
-    top:-10px;
-    left:50%;
-    transform:translateX(-50%);
-    width:0;height:0;
-    border-left:10px solid transparent;
-    border-right:10px solid transparent;
-    border-bottom:16px solid white;
-    z-index:10;
-}
-
-/* WHEEL */
-.wheel{
-    width:100%;
-    height:100%;
-    border-radius:50%;
-    position:relative;
-    transition:transform 5s ease-out;
-    border:6px solid #ffffff30;
-}
-
-/* SEGMENTS (SAFE VERSION) */
-.segment{
-    position:absolute;
-    width:100%;
-    height:100%;
-    clip-path:polygon(50% 50%, 100% 0, 100% 100%);
-    transform-origin:center;
-    display:flex;
-    justify-content:center;
-    align-items:flex-start;
-    padding-top:20px;
-    font-size:9px;
+    font-family:Arial;
     color:white;
 }
 
-/* colors */
-.s1{background:#6366f1; transform:rotate(0deg);}
-.s2{background:#8b5cf6; transform:rotate(36deg);}
-.s3{background:#ec4899; transform:rotate(72deg);}
-.s4{background:#14b8a6; transform:rotate(108deg);}
-.s5{background:#f59e0b; transform:rotate(144deg);}
-.s6{background:#22c55e; transform:rotate(180deg);}
-.s7{background:#3b82f6; transform:rotate(216deg);}
-.s8{background:#ef4444; transform:rotate(252deg);}
-.s9{background:#a855f7; transform:rotate(288deg);}
-.s10{background:#ffd700;color:black;font-weight:bold; transform:rotate(324deg);}
+/* container */
+.grid{
+    width:90vw;
+    max-width:350px;
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+}
+
+/* boxes */
+.box{
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.15);
+    padding:20px;
+    border-radius:12px;
+    text-align:center;
+    cursor:pointer;
+    transition:0.3s;
+    font-size:14px;
+}
+
+.box:hover{
+    transform:scale(1.05);
+}
+
+.opened{
+    background:#1e293b;
+}
 </style>
 </head>
 
 <body>
 
-<div class="box">
+<div class="grid">
 
-<div class="pointer"></div>
-
-<div class="wheel" id="wheel">
-
-<div class="segment s1">Kurti</div>
-<div class="segment s2">Jhumka</div>
-<div class="segment s3">Dress</div>
-<div class="segment s4">Ring</div>
-<div class="segment s5">Keychain</div>
-<div class="segment s6">Shawarma</div>
-<div class="segment s7">Hug</div>
-<div class="segment s8">Choco</div>
-<div class="segment s9">Care</div>
-<div class="segment s10">ADNAN</div>
-
-</div>
+<div class="box" onclick="openBox(this,'👗 Kurti')">🎁 Box 1</div>
+<div class="box" onclick="openBox(this,'💎 Jhumka')">🎁 Box 2</div>
+<div class="box" onclick="openBox(this,'👗 Dress')">🎁 Box 3</div>
+<div class="box" onclick="openBox(this,'💍 Silver Ring')">🎁 Box 4</div>
+<div class="box" onclick="openBox(this,'🔑 Keychain')">🎁 Box 5</div>
+<div class="box" onclick="openBox(this,'🍗 Shawarma')">🎁 Box 6</div>
+<div class="box" onclick="openBox(this,'🤗 Hug')">🎁 Box 7</div>
+<div class="box" onclick="openBox(this,'🍫 Surprise Treat')">🎁 Box 8</div>
+<div class="box" onclick="openBox(this,'🌸 Cute Note')">🎁 Box 9</div>
+<div class="box" onclick="openBox(this,'💎 PREMIUM: Adnan')">🎉 FINAL BOX</div>
 
 </div>
 
 <script>
 
-let rotation = 0;
-const angle = 360/10;
+function openBox(el, gift){
 
-document.body.onclick = function(){
+    if(el.classList.contains("opened")) return;
 
-    const wheel = document.getElementById("wheel");
+    el.classList.add("opened");
+    el.innerHTML = gift;
 
-    let index = Math.floor(Math.random()*10);
-
-    const extra = 5 * 360;
-    const target = (360 - index*angle) - (angle/2);
-
-    rotation += extra + target;
-
-    wheel.style.transform = `rotate(${rotation}deg)`;
-};
+    if(gift.includes("PREMIUM")){
+        setTimeout(()=>{
+            alert("🎉 CONGRATULATIONS!\nYou unlocked Premium Gift: Adnan 💎");
+        },300);
+    }
+}
 
 </script>
 
 </body>
-</html> 
+</html>
