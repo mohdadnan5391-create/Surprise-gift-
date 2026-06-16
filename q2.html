@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Question 2</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#0f172a,#312e81,#4c1d95);
+    color:white;
+    padding:20px;
+}
+
+.card{
+    width:100%;
+    max-width:500px;
+    text-align:center;
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(15px);
+    border-radius:25px;
+    padding:35px 25px;
+    border:1px solid rgba(255,255,255,0.15);
+}
+
+.progress{
+    margin-bottom:25px;
+    color:#cbd5e1;
+    font-size:14px;
+}
+
+h1{
+    font-size:28px;
+    margin-bottom:25px;
+}
+
+.question{
+    font-size:20px;
+    line-height:1.8;
+    margin-bottom:35px;
+}
+
+.btn{
+    width:100%;
+    margin:10px 0;
+    padding:15px;
+    border:none;
+    border-radius:15px;
+    font-size:16px;
+    cursor:pointer;
+    background:white;
+    color:#312e81;
+    font-weight:600;
+    transition:0.3s;
+}
+
+.btn:hover{
+    transform:translateY(-3px);
+}
+
+.message{
+    margin-top:20px;
+    color:#e2e8f0;
+    display:none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<div class="progress">Question 2 of 10</div>
+
+<h1>💭</h1>
+
+<div class="question">
+Do you think your happiness matters to me?
+</div>
+
+<button class="btn" onclick="saveAnswer('Yes ❤️')">
+Yes ❤️
+</button>
+
+<button class="btn" onclick="saveAnswer('Of course 😊')">
+Of course 😊
+</button>
+
+<div class="message" id="msg">
+Good. That’s always true ❤️
+</div>
+
+</div>
+
+<script>
+function saveAnswer(answer){
+
+    localStorage.setItem("q2", answer);
+
+    document.getElementById("msg").style.display="block";
+
+    setTimeout(() => {
+        window.location.href = "q3.html";
+    }, 1500);
+}
+</script>
+
+</body>
+</html>
