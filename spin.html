@@ -1,196 +1,132 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Premium Wheel</title>
+<title>Fixed Premium Wheel</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Poppins',sans-serif;
-}
-
 body{
+    margin:0;
     height:100vh;
     display:flex;
-    flex-direction:column;
     justify-content:center;
     align-items:center;
-    background:radial-gradient(circle at top,#1e1b4b,#0f172a);
+    flex-direction:column;
+    background:radial-gradient(circle,#1e1b4b,#0f172a);
+    font-family:Poppins;
     color:white;
-    overflow:hidden;
 }
 
 h1{margin-bottom:10px;}
-.sub{margin-bottom:20px;color:#cbd5e1;font-size:14px;}
 
-.container{
+.wheel-container{
     position:relative;
     width:320px;
     height:320px;
 }
 
 .pointer{
-    width:0;height:0;
-    border-left:18px solid transparent;
-    border-right:18px solid transparent;
-    border-bottom:28px solid white;
     position:absolute;
-    top:-25px;
+    top:-18px;
     left:50%;
     transform:translateX(-50%);
+    width:0;height:0;
+    border-left:14px solid transparent;
+    border-right:14px solid transparent;
+    border-bottom:22px solid white;
     z-index:10;
-    filter:drop-shadow(0 0 6px white);
 }
 
-/* wheel FIXED */
 .wheel{
     width:100%;
     height:100%;
     border-radius:50%;
     position:relative;
-    border:10px solid rgba(255,255,255,0.2);
-    box-shadow:0 0 30px rgba(255,255,255,0.15);
-    transition:transform 6s cubic-bezier(0.12,0.7,0.1,1);
+    border:8px solid rgba(255,255,255,0.2);
+    transition:transform 5.5s cubic-bezier(0.1,0.7,0.1,1);
+    overflow:hidden;
 }
 
-/* segments FIXED (no skew = no text cut) */
 .segment{
     position:absolute;
     width:50%;
     height:50%;
     left:50%;
-    top:0;
-    transform-origin:bottom left;
+    top:50%;
+    transform-origin:0% 0%;
+    clip-path:polygon(0 0,100% 0,0 100%);
     display:flex;
-    align-items:center;
     justify-content:center;
+    align-items:center;
     font-size:11px;
-    padding-left:20px;
     color:white;
-    text-align:center;
 }
 
 /* colors */
-.c1{background:#6366f1;}
-.c2{background:#8b5cf6;}
-.c3{background:#ec4899;}
-.c4{background:#14b8a6;}
-.c5{background:#f59e0b;}
-.c6{background:#22c55e;}
-.c7{background:#3b82f6;}
-.c8{background:#ef4444;}
-.c9{background:#a855f7;}
-.c10{
-    background:linear-gradient(45deg,#ffd700,#ffb800);
-    font-weight:700;
-    animation:pulse 1.2s infinite;
-}
-
-@keyframes pulse{
-    0%{filter:brightness(1);}
-    50%{filter:brightness(1.4);}
-    100%{filter:brightness(1);}
-}
+.s1{background:#6366f1;}
+.s2{background:#8b5cf6;}
+.s3{background:#ec4899;}
+.s4{background:#14b8a6;}
+.s5{background:#f59e0b;}
+.s6{background:#22c55e;}
+.s7{background:#3b82f6;}
+.s8{background:#ef4444;}
+.s9{background:#a855f7;}
+.s10{background:linear-gradient(45deg,#ffd700,#ffb800); font-weight:bold;}
 
 button{
-    margin-top:30px;
-    padding:12px 26px;
+    margin-top:25px;
+    padding:12px 24px;
     border:none;
     border-radius:30px;
     font-size:16px;
     cursor:pointer;
     font-weight:600;
-    background:white;
-    color:#312e81;
 }
 
-button:disabled{opacity:0.5;cursor:not-allowed;}
-
-/* CELEBRATION OVERLAY */
-.overlay{
-    position:fixed;
-    top:0;left:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.85);
-    display:none;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
+.result{
+    margin-top:15px;
     text-align:center;
-    color:white;
-    z-index:999;
-}
-
-.card{
-    background:rgba(255,255,255,0.1);
-    padding:25px;
-    border-radius:20px;
-    border:1px solid rgba(255,255,255,0.2);
-    animation:pop 0.6s ease;
-}
-
-@keyframes pop{
-    from{transform:scale(0.5);opacity:0;}
-    to{transform:scale(1);opacity:1;}
-}
-
-.big{
-    font-size:30px;
-    margin-bottom:10px;
 }
 </style>
 </head>
 
 <body>
 
-<h1>🎡 Premium Wheel</h1>
-<div class="sub">Only 3 spins allowed</div>
+<h1>🎡 Gift Wheel</h1>
 
-<div class="container">
+<div class="wheel-container">
 <div class="pointer"></div>
 
 <div class="wheel" id="wheel">
 
-<div class="segment c1" style="transform:rotate(0deg)">👗 Kurti</div>
-<div class="segment c2" style="transform:rotate(36deg)">💎 Jhumka</div>
-<div class="segment c3" style="transform:rotate(72deg)">👗 Dress</div>
-<div class="segment c4" style="transform:rotate(108deg)">💍 Ring</div>
-<div class="segment c5" style="transform:rotate(144deg)">🔑 Keychain</div>
-<div class="segment c6" style="transform:rotate(180deg)">🍗 Shawarma</div>
-<div class="segment c7" style="transform:rotate(216deg)">🤗 Hug</div>
-<div class="segment c8" style="transform:rotate(252deg)">🍫 Chocolate</div>
-<div class="segment c9" style="transform:rotate(288deg)">🌸 Care Kit</div>
-<div class="segment c10" style="transform:rotate(324deg)">💎 ADNAN</div>
+<div class="segment s1" style="transform:rotate(0deg) skewY(-54deg)">👗 Kurti</div>
+<div class="segment s2" style="transform:rotate(36deg) skewY(-54deg)">💎 Jhumka</div>
+<div class="segment s3" style="transform:rotate(72deg) skewY(-54deg)">👗 Dress</div>
+<div class="segment s4" style="transform:rotate(108deg) skewY(-54deg)">💍 Ring</div>
+<div class="segment s5" style="transform:rotate(144deg) skewY(-54deg)">🔑 Keychain</div>
+<div class="segment s6" style="transform:rotate(180deg) skewY(-54deg)">🍗 Shawarma</div>
+<div class="segment s7" style="transform:rotate(216deg) skewY(-54deg)">🤗 Hug</div>
+<div class="segment s8" style="transform:rotate(252deg) skewY(-54deg)">🍫 Choco</div>
+<div class="segment s9" style="transform:rotate(288deg) skewY(-54deg)">🌸 Care</div>
+<div class="segment s10" style="transform:rotate(324deg) skewY(-54deg)">💎 ADNAN</div>
 
 </div>
 </div>
 
-<button id="btn" onclick="spin()">SPIN 🎯</button>
+<button id="btn" onclick="spin()">SPIN 🎯 (3 left)</button>
 
-<div class="overlay" id="overlay">
-    <div class="card">
-        <div class="big">🎉 CONGRATULATIONS 🎉</div>
-        <div id="msg"></div>
-    </div>
-</div>
+<div class="result" id="result"></div>
 
 <script>
 
 let spins = 3;
 let rotation = 0;
 
-const gifts = [
-"Kurti","Jhumka","Dress","Ring","Keychain",
-"Shawarma","Hug","Chocolate","Care Kit","ADNAN"
-];
+const angle = 360/10;
 
 function spin(){
 
@@ -198,62 +134,69 @@ function spin(){
 
     spins--;
 
+    const wheel = document.getElementById("wheel");
+    const btn = document.getElementById("btn");
+    const result = document.getElementById("result");
+
     let index;
 
+    // FORCE PREMIUM ON LAST SPIN
     if(spins === 0){
-        index = 9; // force premium
+        index = 9;
     }else{
         index = Math.floor(Math.random()*9);
     }
 
-    const angle = 360/10;
-    const extra = 5*360;
-    const target = (360 - (index*angle)) - (angle/2);
+    const extraSpins = 6 * 360;
 
-    rotation += extra + target;
+    const target = (360 - (index * angle)) - (angle/2);
 
-    document.getElementById("wheel").style.transform = `rotate(${rotation}deg)`;
+    rotation += extraSpins + target;
+
+    wheel.style.transform = `rotate(${rotation}deg)`;
 
     setTimeout(()=>{
 
         if(index === 9){
-            showCelebration(`
-💎 PREMIUM GIFT UNLOCKED 💎<br><br>
-<b>Adnan</b><br><br>
-A special person who will stay, care, annoy, and support you in his own imperfect but real way 🤍
-`);
+            showFinal();
         }else{
-            alert("🎁 You got: " + gifts[index]);
+            result.innerHTML = "🎁 You got: " + document.querySelectorAll(".segment")[index].innerText;
         }
 
         if(spins === 0){
-            document.getElementById("btn").disabled = true;
-            document.getElementById("btn").innerText = "No Spins Left";
+            btn.disabled = true;
+            btn.innerText = "No Spins Left";
         }
 
-    },6000);
+    },5500);
 }
 
-function showCelebration(text){
-    document.getElementById("overlay").style.display="flex";
-    document.getElementById("msg").innerHTML=text;
+function showFinal(){
+    document.body.innerHTML = `
+        <div style="text-align:center;color:white;">
+            <h1>🎉 CONGRATULATIONS 🎉</h1>
+            <h2>💎 PREMIUM GIFT UNLOCKED</h2>
+            <p style="font-size:18px;margin-top:20px;">
+            Adnan<br><br>
+            A special person who will stay, care, and support you in his own way 🤍
+            </p>
+        </div>
+    `;
 
     launchConfetti();
 }
 
-/* simple confetti */
 function launchConfetti(){
-    for(let i=0;i<80;i++){
-        let div=document.createElement("div");
-        div.innerHTML="🎉";
-        div.style.position="fixed";
-        div.style.left=Math.random()*100+"vw";
-        div.style.top="-10px";
-        div.style.fontSize="20px";
-        div.style.animation="fall 3s linear";
-        document.body.appendChild(div);
-
-        setTimeout(()=>div.remove(),3000);
+    for(let i=0;i<120;i++){
+        let d=document.createElement("div");
+        d.innerHTML="🎉";
+        d.style.position="fixed";
+        d.style.left=Math.random()*100+"vw";
+        d.style.top="-10px";
+        d.style.fontSize="18px";
+        d.style.animation="fall 3s linear";
+        document.body.appendChild(d);
+        setTimeout(()=>d.remove(),3000);
     }
 }
 
