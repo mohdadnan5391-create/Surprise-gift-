@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Your Surprise</title>
+<title>Final Step</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
@@ -23,7 +23,6 @@ body{
     background:linear-gradient(135deg,#0f172a,#312e81,#4c1d95);
     color:white;
     padding:20px;
-    overflow:auto;
 }
 
 .card{
@@ -55,20 +54,9 @@ p{
     margin-bottom:20px;
 }
 
-.box{
-    margin-top:25px;
-    padding:20px;
-    border-radius:15px;
-    background:rgba(255,255,255,0.05);
-    border:1px solid rgba(255,255,255,0.1);
-    text-align:left;
-    font-size:14px;
-    display:none;
-}
-
 button{
     margin-top:20px;
-    padding:14px 28px;
+    padding:14px 30px;
     border:none;
     border-radius:50px;
     font-size:16px;
@@ -89,58 +77,21 @@ button:hover{
 
 <div class="card">
 
-<h1>🎁 Your Journey Ends Here</h1>
+<h1>💭 One Last Thing</h1>
 
 <p>
-This was never just a quiz.
+This wasn’t a quiz to test you…  
 <br><br>
-It was my way of reminding you something very simple…
+It was just a small reminder that you matter, and your smile is important.
 <br><br>
-You matter. Your happiness matters. And you are never alone in what you feel.
-<br><br>
-Thank you for taking this little journey with me. 🤍
+Now there’s one last thing waiting for you.
 </p>
 
-<button onclick="showAnswers()">
-Reveal My Answers ✨
+<button onclick="window.location.href='gift.html'">
+Open Your Gift 🎁
 </button>
 
-<div class="box" id="answers">
-
-<h3>💭 Your Responses</h3>
-<br>
-
-<p id="a1"></p>
-<p id="a2"></p>
-<p id="a3"></p>
-<p id="a4"></p>
-<p id="a5"></p>
-<p id="a6"></p>
-<p id="a7"></p>
-<p id="a8"></p>
-<p id="a9"></p>
-
 </div>
-
-</div>
-
-<script>
-function showAnswers(){
-
-    document.getElementById("answers").style.display="block";
-
-    document.getElementById("a1").innerHTML = "Q1: " + localStorage.getItem("q1");
-    document.getElementById("a2").innerHTML = "Q2: " + localStorage.getItem("q2");
-    document.getElementById("a3").innerHTML = "Q3: " + localStorage.getItem("q3");
-    document.getElementById("a4").innerHTML = "Q4: " + localStorage.getItem("q4");
-    document.getElementById("a5").innerHTML = "Q5: " + localStorage.getItem("q5");
-    document.getElementById("a6").innerHTML = "Q6: " + localStorage.getItem("q6");
-    document.getElementById("a7").innerHTML = "Q7: " + localStorage.getItem("q7");
-    document.getElementById("a8").innerHTML = "Q8: " + localStorage.getItem("q8");
-    document.getElementById("a9").innerHTML = "Q9: " + localStorage.getItem("q9");
-
-}
-</script>
 
 </body>
 </html>
