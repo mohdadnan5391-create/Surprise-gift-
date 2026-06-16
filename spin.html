@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Premium Spin Wheel</title>
+<title>Premium Wheel</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
@@ -26,15 +27,8 @@ body{
     overflow:hidden;
 }
 
-h1{
-    margin-bottom:10px;
-}
-
-.sub{
-    margin-bottom:20px;
-    color:#cbd5e1;
-    font-size:14px;
-}
+h1{margin-bottom:10px;}
+.sub{margin-bottom:20px;color:#cbd5e1;font-size:14px;}
 
 .container{
     position:relative;
@@ -42,10 +36,8 @@ h1{
     height:320px;
 }
 
-/* pointer */
 .pointer{
-    width:0;
-    height:0;
+    width:0;height:0;
     border-left:18px solid transparent;
     border-right:18px solid transparent;
     border-bottom:28px solid white;
@@ -54,35 +46,35 @@ h1{
     left:50%;
     transform:translateX(-50%);
     z-index:10;
-    filter:drop-shadow(0 0 5px white);
+    filter:drop-shadow(0 0 6px white);
 }
 
-/* wheel */
+/* wheel FIXED */
 .wheel{
     width:100%;
     height:100%;
     border-radius:50%;
     position:relative;
     border:10px solid rgba(255,255,255,0.2);
-    box-shadow:0 0 25px rgba(255,255,255,0.15);
+    box-shadow:0 0 30px rgba(255,255,255,0.15);
     transition:transform 6s cubic-bezier(0.12,0.7,0.1,1);
-    overflow:hidden;
 }
 
-/* segments */
+/* segments FIXED (no skew = no text cut) */
 .segment{
     position:absolute;
     width:50%;
     height:50%;
-    transform-origin:bottom right;
-    clip-path:polygon(0 0, 100% 0, 100% 100%);
+    left:50%;
+    top:0;
+    transform-origin:bottom left;
     display:flex;
-    justify-content:center;
     align-items:center;
+    justify-content:center;
     font-size:11px;
-    padding:10px;
-    text-align:center;
+    padding-left:20px;
     color:white;
+    text-align:center;
 }
 
 /* colors */
@@ -95,9 +87,18 @@ h1{
 .c7{background:#3b82f6;}
 .c8{background:#ef4444;}
 .c9{background:#a855f7;}
-.c10{background:linear-gradient(45deg,#ffd700,#ffb800); font-weight:600;}
+.c10{
+    background:linear-gradient(45deg,#ffd700,#ffb800);
+    font-weight:700;
+    animation:pulse 1.2s infinite;
+}
 
-/* button */
+@keyframes pulse{
+    0%{filter:brightness(1);}
+    50%{filter:brightness(1.4);}
+    100%{filter:brightness(1);}
+}
+
 button{
     margin-top:30px;
     padding:12px 26px;
@@ -110,36 +111,50 @@ button{
     color:#312e81;
 }
 
-button:disabled{
-    opacity:0.5;
-    cursor:not-allowed;
-}
+button:disabled{opacity:0.5;cursor:not-allowed;}
 
-/* result box */
-.result{
-    margin-top:20px;
-    text-align:center;
-    max-width:320px;
+/* CELEBRATION OVERLAY */
+.overlay{
+    position:fixed;
+    top:0;left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.85);
     display:none;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    text-align:center;
+    color:white;
+    z-index:999;
 }
 
 .card{
-    margin-top:10px;
-    padding:15px;
-    border-radius:15px;
-    background:rgba(255,255,255,0.08);
-    border:1px solid rgba(255,255,255,0.15);
+    background:rgba(255,255,255,0.1);
+    padding:25px;
+    border-radius:20px;
+    border:1px solid rgba(255,255,255,0.2);
+    animation:pop 0.6s ease;
+}
+
+@keyframes pop{
+    from{transform:scale(0.5);opacity:0;}
+    to{transform:scale(1);opacity:1;}
+}
+
+.big{
+    font-size:30px;
+    margin-bottom:10px;
 }
 </style>
 </head>
 
 <body>
 
-<h1>🎡 Premium Gift Wheel</h1>
-<div class="sub">You have only 3 spins ✨</div>
+<h1>🎡 Premium Wheel</h1>
+<div class="sub">Only 3 spins allowed</div>
 
 <div class="container">
-
 <div class="pointer"></div>
 
 <div class="wheel" id="wheel">
@@ -153,90 +168,105 @@ button:disabled{
 <div class="segment c7" style="transform:rotate(216deg)">🤗 Hug</div>
 <div class="segment c8" style="transform:rotate(252deg)">🍫 Chocolate</div>
 <div class="segment c9" style="transform:rotate(288deg)">🌸 Care Kit</div>
-<div class="segment c10" style="transform:rotate(324deg)">💎 ADnan</div>
+<div class="segment c10" style="transform:rotate(324deg)">💎 ADNAN</div>
 
 </div>
-
 </div>
 
-<button id="spinBtn" onclick="spin()">SPIN 🎯</button>
+<button id="btn" onclick="spin()">SPIN 🎯</button>
 
-<div class="result" id="result">
-<div class="card" id="text"></div>
+<div class="overlay" id="overlay">
+    <div class="card">
+        <div class="big">🎉 CONGRATULATIONS 🎉</div>
+        <div id="msg"></div>
+    </div>
 </div>
 
 <script>
 
-let spinsLeft = 3;
+let spins = 3;
 let rotation = 0;
 
 const gifts = [
-"👗 Kurti",
-"💎 Jhumka",
-"👗 Dress",
-"💍 Silver Ring",
-"🔑 Keychain",
-"🍗 Shawarma",
-"🤗 A Hug",
-"🍫 Chocolate Surprise",
-"🌸 Self-care Kit",
-"💎 PREMIUM: Adnan"
+"Kurti","Jhumka","Dress","Ring","Keychain",
+"Shawarma","Hug","Chocolate","Care Kit","ADNAN"
 ];
 
 function spin(){
 
-    if(spinsLeft <= 0) return;
+    if(spins <= 0) return;
 
-    spinsLeft--;
-
-    const wheel = document.getElementById("wheel");
-    const result = document.getElementById("result");
-    const text = document.getElementById("text");
-    const btn = document.getElementById("spinBtn");
+    spins--;
 
     let index;
 
-    // 🎯 FORCE LAST SPIN TO PREMIUM
-    if(spinsLeft === 0){
-        index = 9; // Adnan
+    if(spins === 0){
+        index = 9; // force premium
     }else{
-        index = Math.floor(Math.random() * 9);
+        index = Math.floor(Math.random()*9);
     }
 
-    const segmentAngle = 360 / 10;
+    const angle = 360/10;
+    const extra = 5*360;
+    const target = (360 - (index*angle)) - (angle/2);
 
-    const extraSpins = 5 * 360;
+    rotation += extra + target;
 
-    const targetAngle = (360 - (index * segmentAngle)) - (segmentAngle / 2);
-
-    rotation += extraSpins + targetAngle;
-
-    wheel.style.transform = `rotate(${rotation}deg)`;
+    document.getElementById("wheel").style.transform = `rotate(${rotation}deg)`;
 
     setTimeout(()=>{
 
-        result.style.display="block";
-
         if(index === 9){
-            text.innerHTML = `
-            🎉 Congratulations!<br><br>
-            💎 You unlocked Premium Gift<br><br>
-            <b>Adnan</b><br><br>
-            A person who will always try to stay, care, cook sometimes, annoy you a little, and support you in his own imperfect way 🤍
-            `;
+            showCelebration(`
+💎 PREMIUM GIFT UNLOCKED 💎<br><br>
+<b>Adnan</b><br><br>
+A special person who will stay, care, annoy, and support you in his own imperfect but real way 🤍
+`);
         }else{
-            text.innerHTML = `🎁 You won: ${gifts[index]}`;
+            alert("🎁 You got: " + gifts[index]);
         }
 
-        if(spinsLeft === 0){
-            btn.disabled = true;
-            btn.innerText = "No Spins Left";
+        if(spins === 0){
+            document.getElementById("btn").disabled = true;
+            document.getElementById("btn").innerText = "No Spins Left";
         }
 
     },6000);
 }
 
+function showCelebration(text){
+    document.getElementById("overlay").style.display="flex";
+    document.getElementById("msg").innerHTML=text;
+
+    launchConfetti();
+}
+
+/* simple confetti */
+function launchConfetti(){
+    for(let i=0;i<80;i++){
+        let div=document.createElement("div");
+        div.innerHTML="🎉";
+        div.style.position="fixed";
+        div.style.left=Math.random()*100+"vw";
+        div.style.top="-10px";
+        div.style.fontSize="20px";
+        div.style.animation="fall 3s linear";
+        document.body.appendChild(div);
+
+        setTimeout(()=>div.remove(),3000);
+    }
+}
+
 </script>
+
+<style>
+@keyframes fall{
+    to{
+        transform:translateY(110vh) rotate(360deg);
+        opacity:0;
+    }
+}
+</style>
 
 </body>
 </html>
