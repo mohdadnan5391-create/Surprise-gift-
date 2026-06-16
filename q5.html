@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Question 4</title>
+<title>Question 5</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
@@ -20,7 +20,7 @@ body{
     display:flex;
     justify-content:center;
     align-items:center;
-    background:linear-gradient(135deg,#0f172a,#1e1b4b,#3b0764);
+    background:linear-gradient(135deg,#0f172a,#1e1b4b,#4c1d95);
     color:white;
     padding:20px;
 }
@@ -83,24 +83,24 @@ h1{
 
 <div class="card">
 
-<div class="progress">Question 4 of 10</div>
+<div class="progress">Question 5 of 10</div>
 
-<h1>🌸</h1>
+<h1>💜</h1>
 
 <div class="question">
-When you're worried, should you carry everything alone?
+Do you believe I want to see you happy, always?
 </div>
 
-<button class="btn" onclick="saveAnswer('No ❤️')">
-No ❤️
+<button class="btn" onclick="saveAnswer('Yes ❤️')">
+Yes ❤️
 </button>
 
-<button class="btn" onclick="saveAnswer('Never 😊')">
-Never 😊
+<button class="btn" onclick="saveAnswer('Of course 😊')">
+Of course 😊
 </button>
 
 <div class="message" id="msg">
-Good… you don’t have to ❤️
+Always… that’s the truth ❤️
 </div>
 
 </div>
@@ -108,12 +108,12 @@ Good… you don’t have to ❤️
 <script>
 function saveAnswer(answer){
 
-    localStorage.setItem("q4", answer);
+    localStorage.setItem("q5", answer);
 
     document.getElementById("msg").style.display="block";
 
     setTimeout(() => {
-        window.location.href = "q5.html";
+        window.location.href = "q6.html";
     }, 1500);
 }
 </script>
