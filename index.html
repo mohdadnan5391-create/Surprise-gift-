@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Little Something For You</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(
+        135deg,
+        #0f172a,
+        #1e293b,
+        #334155
+    );
+    overflow:hidden;
+}
+
+/* Floating glow */
+.glow{
+    position:absolute;
+    width:300px;
+    height:300px;
+    background:rgba(255,255,255,0.08);
+    border-radius:50%;
+    filter:blur(80px);
+    animation:float 8s infinite ease-in-out;
+}
+
+.glow:nth-child(1){
+    top:-80px;
+    left:-80px;
+}
+
+.glow:nth-child(2){
+    bottom:-80px;
+    right:-80px;
+    animation-delay:4s;
+}
+
+@keyframes float{
+    50%{
+        transform:translateY(30px);
+    }
+}
+
+.card{
+    width:90%;
+    max-width:500px;
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(15px);
+    border:1px solid rgba(255,255,255,0.15);
+    border-radius:25px;
+    padding:40px 30px;
+    text-align:center;
+    color:white;
+    animation:fadeIn 1.5s ease;
+    z-index:10;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+h1{
+    font-size:32px;
+    margin-bottom:25px;
+    font-weight:600;
+}
+
+p{
+    font-size:17px;
+    line-height:1.9;
+    color:#e2e8f0;
+}
+
+.btn{
+    margin-top:35px;
+    display:inline-block;
+    text-decoration:none;
+    color:#0f172a;
+    background:white;
+    padding:14px 34px;
+    border-radius:50px;
+    font-weight:600;
+    transition:0.3s;
+}
+
+.btn:hover{
+    transform:translateY(-3px);
+}
+</style>
+</head>
+
+<body>
+
+<div class="glow"></div>
+<div class="glow"></div>
+
+<div class="card">
+    <h1>A Little Something For You</h1>
+
+    <p>
+        Not everything deserves a second look.
+        <br><br>
+        But some things deserve a moment of your time.
+        <br><br>
+        I've prepared something for you.
+        <br><br>
+        A small journey, a few questions, and a surprise waiting at the end.
+    </p>
+
+    <a href="music.html" class="btn">
+        Begin ✨
+    </a>
+</div>
+
+</body>
+</html>
