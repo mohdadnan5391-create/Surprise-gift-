@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Gifts</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#0f172a,#1e1b4b,#4c1d95);
+    color:white;
+    padding:20px;
+}
+
+.container{
+    width:100%;
+    max-width:700px;
+    text-align:center;
+}
+
+h1{
+    margin-bottom:20px;
+    font-size:30px;
+}
+
+p{
+    margin-bottom:30px;
+    color:#e2e8f0;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+.card{
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(15px);
+    border-radius:20px;
+    padding:25px;
+    border:1px solid rgba(255,255,255,0.15);
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.card h2{
+    font-size:18px;
+    margin-top:10px;
+}
+
+.emoji{
+    font-size:35px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🎁 Your Gift Box</h1>
+
+<p>Choose one surprise. Each one has something special.</p>
+
+<div class="grid">
+
+<div class="card" onclick="location.href='scratch.html'">
+<div class="emoji">🎟</div>
+<h2>Scratch Card</h2>
+</div>
+
+<div class="card" onclick="location.href='spin.html'">
+<div class="emoji">🎡</div>
+<h2>Spin Wheel</h2>
+</div>
+
+<div class="card" onclick="location.href='draw.html'">
+<div class="emoji">🍀</div>
+<h2>Lucky Draw</h2>
+</div>
+
+<div class="card" onclick="location.href='quizgift.html'">
+<div class="emoji">❓</div>
+<h2>Answer to Win</h2>
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>
