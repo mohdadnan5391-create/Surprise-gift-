@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Premium Spin Wheel</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    background:radial-gradient(circle at top,#1e1b4b,#0f172a);
+    color:white;
+    overflow:hidden;
+}
+
+h1{
+    margin-bottom:10px;
+}
+
+.sub{
+    margin-bottom:20px;
+    color:#cbd5e1;
+    font-size:14px;
+}
+
+.container{
+    position:relative;
+    width:320px;
+    height:320px;
+}
+
+/* pointer */
+.pointer{
+    width:0;
+    height:0;
+    border-left:18px solid transparent;
+    border-right:18px solid transparent;
+    border-bottom:28px solid white;
+    position:absolute;
+    top:-25px;
+    left:50%;
+    transform:translateX(-50%);
+    z-index:10;
+    filter:drop-shadow(0 0 5px white);
+}
+
+/* wheel */
+.wheel{
+    width:100%;
+    height:100%;
+    border-radius:50%;
+    position:relative;
+    border:10px solid rgba(255,255,255,0.2);
+    box-shadow:0 0 25px rgba(255,255,255,0.15);
+    transition:transform 6s cubic-bezier(0.12,0.7,0.1,1);
+    overflow:hidden;
+}
+
+/* segments */
+.segment{
+    position:absolute;
+    width:50%;
+    height:50%;
+    transform-origin:bottom right;
+    clip-path:polygon(0 0, 100% 0, 100% 100%);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:11px;
+    padding:10px;
+    text-align:center;
+    color:white;
+}
+
+/* colors */
+.c1{background:#6366f1;}
+.c2{background:#8b5cf6;}
+.c3{background:#ec4899;}
+.c4{background:#14b8a6;}
+.c5{background:#f59e0b;}
+.c6{background:#22c55e;}
+.c7{background:#3b82f6;}
+.c8{background:#ef4444;}
+.c9{background:#a855f7;}
+.c10{background:linear-gradient(45deg,#ffd700,#ffb800); font-weight:600;}
+
+/* button */
+button{
+    margin-top:30px;
+    padding:12px 26px;
+    border:none;
+    border-radius:30px;
+    font-size:16px;
+    cursor:pointer;
+    font-weight:600;
+    background:white;
+    color:#312e81;
+}
+
+button:disabled{
+    opacity:0.5;
+    cursor:not-allowed;
+}
+
+/* result box */
+.result{
+    margin-top:20px;
+    text-align:center;
+    max-width:320px;
+    display:none;
+}
+
+.card{
+    margin-top:10px;
+    padding:15px;
+    border-radius:15px;
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.15);
+}
+</style>
+</head>
+
+<body>
+
+<h1>🎡 Premium Gift Wheel</h1>
+<div class="sub">You have only 3 spins ✨</div>
+
+<div class="container">
+
+<div class="pointer"></div>
+
+<div class="wheel" id="wheel">
+
+<div class="segment c1" style="transform:rotate(0deg)">👗 Kurti</div>
+<div class="segment c2" style="transform:rotate(36deg)">💎 Jhumka</div>
+<div class="segment c3" style="transform:rotate(72deg)">👗 Dress</div>
+<div class="segment c4" style="transform:rotate(108deg)">💍 Ring</div>
+<div class="segment c5" style="transform:rotate(144deg)">🔑 Keychain</div>
+<div class="segment c6" style="transform:rotate(180deg)">🍗 Shawarma</div>
+<div class="segment c7" style="transform:rotate(216deg)">🤗 Hug</div>
+<div class="segment c8" style="transform:rotate(252deg)">🍫 Chocolate</div>
+<div class="segment c9" style="transform:rotate(288deg)">🌸 Care Kit</div>
+<div class="segment c10" style="transform:rotate(324deg)">💎 ADnan</div>
+
+</div>
+
+</div>
+
+<button id="spinBtn" onclick="spin()">SPIN 🎯</button>
+
+<div class="result" id="result">
+<div class="card" id="text"></div>
+</div>
+
+<script>
+
+let spinsLeft = 3;
+let rotation = 0;
+
+const gifts = [
+"👗 Kurti",
+"💎 Jhumka",
+"👗 Dress",
+"💍 Silver Ring",
+"🔑 Keychain",
+"🍗 Shawarma",
+"🤗 A Hug",
+"🍫 Chocolate Surprise",
+"🌸 Self-care Kit",
+"💎 PREMIUM: Adnan"
+];
+
+function spin(){
+
+    if(spinsLeft <= 0) return;
+
+    spinsLeft--;
+
+    const wheel = document.getElementById("wheel");
+    const result = document.getElementById("result");
+    const text = document.getElementById("text");
+    const btn = document.getElementById("spinBtn");
+
+    let index;
+
+    // 🎯 FORCE LAST SPIN TO PREMIUM
+    if(spinsLeft === 0){
+        index = 9; // Adnan
+    }else{
+        index = Math.floor(Math.random() * 9);
+    }
+
+    const segmentAngle = 360 / 10;
+
+    const extraSpins = 5 * 360;
+
+    const targetAngle = (360 - (index * segmentAngle)) - (segmentAngle / 2);
+
+    rotation += extraSpins + targetAngle;
+
+    wheel.style.transform = `rotate(${rotation}deg)`;
+
+    setTimeout(()=>{
+
+        result.style.display="block";
+
+        if(index === 9){
+            text.innerHTML = `
+            🎉 Congratulations!<br><br>
+            💎 You unlocked Premium Gift<br><br>
+            <b>Adnan</b><br><br>
+            A person who will always try to stay, care, cook sometimes, annoy you a little, and support you in his own imperfect way 🤍
+            `;
+        }else{
+            text.innerHTML = `🎁 You won: ${gifts[index]}`;
+        }
+
+        if(spinsLeft === 0){
+            btn.disabled = true;
+            btn.innerText = "No Spins Left";
+        }
+
+    },6000);
+}
+
+</script>
+
+</body>
+</html>
