@@ -3,26 +3,33 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fixed Premium Wheel</title>
+<title>Final Gift Wheel</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
-body{
+*{
     margin:0;
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-    background:radial-gradient(circle,#1e1b4b,#0f172a);
-    font-family:Poppins;
-    color:white;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
 }
 
-h1{margin-bottom:10px;}
+body{
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    background:radial-gradient(circle at top,#1e1b4b,#0f172a);
+    color:white;
+    overflow:hidden;
+}
 
-.wheel-container{
+h1{margin-bottom:8px;}
+.sub{margin-bottom:20px;color:#cbd5e1;font-size:13px;}
+
+.container{
     position:relative;
     width:320px;
     height:320px;
@@ -38,18 +45,20 @@ h1{margin-bottom:10px;}
     border-right:14px solid transparent;
     border-bottom:22px solid white;
     z-index:10;
+    filter:drop-shadow(0 0 5px white);
 }
 
 .wheel{
     width:100%;
     height:100%;
     border-radius:50%;
+    border:8px solid rgba(255,255,255,0.15);
+    box-shadow:0 0 25px rgba(255,255,255,0.1);
     position:relative;
-    border:8px solid rgba(255,255,255,0.2);
-    transition:transform 5.5s cubic-bezier(0.1,0.7,0.1,1);
-    overflow:hidden;
+    transition:transform 6s cubic-bezier(0.12,0.8,0.12,1);
 }
 
+/* clean segments */
 .segment{
     position:absolute;
     width:50%;
@@ -57,7 +66,6 @@ h1{margin-bottom:10px;}
     left:50%;
     top:50%;
     transform-origin:0% 0%;
-    clip-path:polygon(0 0,100% 0,0 100%);
     display:flex;
     justify-content:center;
     align-items:center;
@@ -75,58 +83,110 @@ h1{margin-bottom:10px;}
 .s7{background:#3b82f6;}
 .s8{background:#ef4444;}
 .s9{background:#a855f7;}
-.s10{background:linear-gradient(45deg,#ffd700,#ffb800); font-weight:bold;}
+.s10{
+    background:linear-gradient(45deg,#ffd700,#ffb800);
+    font-weight:700;
+    animation:glow 1.5s infinite;
+}
+
+@keyframes glow{
+    0%{filter:brightness(1);}
+    50%{filter:brightness(1.4);}
+    100%{filter:brightness(1);}
+}
 
 button{
     margin-top:25px;
-    padding:12px 24px;
+    padding:12px 26px;
     border:none;
     border-radius:30px;
-    font-size:16px;
+    font-size:15px;
     cursor:pointer;
     font-weight:600;
+    background:white;
+    color:#312e81;
 }
 
-.result{
-    margin-top:15px;
-    text-align:center;
+button:disabled{
+    opacity:0.5;
+    cursor:not-allowed;
 }
+
+/* overlay */
+.overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.85);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    z-index:999;
+}
+
+.card{
+    background:rgba(255,255,255,0.1);
+    padding:25px;
+    border-radius:20px;
+    border:1px solid rgba(255,255,255,0.2);
+    animation:pop 0.4s ease;
+}
+
+@keyframes pop{
+    from{transform:scale(0.6);opacity:0;}
+    to{transform:scale(1);opacity:1;}
+}
+
+.big{font-size:28px;margin-bottom:10px;}
 </style>
 </head>
 
 <body>
 
 <h1>🎡 Gift Wheel</h1>
+<div class="sub">Only 3 spins available</div>
 
-<div class="wheel-container">
+<div class="container">
 <div class="pointer"></div>
 
 <div class="wheel" id="wheel">
 
-<div class="segment s1" style="transform:rotate(0deg) skewY(-54deg)">👗 Kurti</div>
-<div class="segment s2" style="transform:rotate(36deg) skewY(-54deg)">💎 Jhumka</div>
-<div class="segment s3" style="transform:rotate(72deg) skewY(-54deg)">👗 Dress</div>
-<div class="segment s4" style="transform:rotate(108deg) skewY(-54deg)">💍 Ring</div>
-<div class="segment s5" style="transform:rotate(144deg) skewY(-54deg)">🔑 Keychain</div>
-<div class="segment s6" style="transform:rotate(180deg) skewY(-54deg)">🍗 Shawarma</div>
-<div class="segment s7" style="transform:rotate(216deg) skewY(-54deg)">🤗 Hug</div>
-<div class="segment s8" style="transform:rotate(252deg) skewY(-54deg)">🍫 Choco</div>
-<div class="segment s9" style="transform:rotate(288deg) skewY(-54deg)">🌸 Care</div>
-<div class="segment s10" style="transform:rotate(324deg) skewY(-54deg)">💎 ADNAN</div>
+<div class="segment s1" style="transform:rotate(0deg)">👗 Kurti</div>
+<div class="segment s2" style="transform:rotate(36deg)">💎 Jhumka</div>
+<div class="segment s3" style="transform:rotate(72deg)">👗 Dress</div>
+<div class="segment s4" style="transform:rotate(108deg)">💍 Ring</div>
+<div class="segment s5" style="transform:rotate(144deg)">🔑 Keychain</div>
+<div class="segment s6" style="transform:rotate(180deg)">🍗 Shawarma</div>
+<div class="segment s7" style="transform:rotate(216deg)">🤗 Hug</div>
+<div class="segment s8" style="transform:rotate(252deg)">🍫 Choco</div>
+<div class="segment s9" style="transform:rotate(288deg)">🌸 Care</div>
+<div class="segment s10" style="transform:rotate(324deg)">💎 ADNAN</div>
 
 </div>
 </div>
 
-<button id="btn" onclick="spin()">SPIN 🎯 (3 left)</button>
+<button id="btn" onclick="spin()">SPIN 🎯</button>
 
-<div class="result" id="result"></div>
+<div class="overlay" id="overlay">
+    <div class="card">
+        <div class="big" id="title"></div>
+        <div id="msg"></div>
+    </div>
+</div>
+
+<canvas id="confetti"></canvas>
 
 <script>
 
 let spins = 3;
 let rotation = 0;
-
 const angle = 360/10;
+
+const wheel = document.getElementById("wheel");
+const btn = document.getElementById("btn");
+const overlay = document.getElementById("overlay");
+const title = document.getElementById("title");
+const msg = document.getElementById("msg");
 
 function spin(){
 
@@ -134,25 +194,18 @@ function spin(){
 
     spins--;
 
-    const wheel = document.getElementById("wheel");
-    const btn = document.getElementById("btn");
-    const result = document.getElementById("result");
-
     let index;
 
-    // FORCE PREMIUM ON LAST SPIN
     if(spins === 0){
-        index = 9;
+        index = 9; // premium forced
     }else{
         index = Math.floor(Math.random()*9);
     }
 
-    const extraSpins = 6 * 360;
+    const extra = 6 * 360;
+    const target = (360 - index * angle) - (angle/2);
 
-    const target = (360 - (index * angle)) - (angle/2);
-
-    rotation += extraSpins + target;
-
+    rotation += extra + target;
     wheel.style.transform = `rotate(${rotation}deg)`;
 
     setTimeout(()=>{
@@ -160,7 +213,7 @@ function spin(){
         if(index === 9){
             showFinal();
         }else{
-            result.innerHTML = "🎁 You got: " + document.querySelectorAll(".segment")[index].innerText;
+            showGift(document.querySelectorAll(".segment")[index].innerText);
         }
 
         if(spins === 0){
@@ -168,48 +221,62 @@ function spin(){
             btn.innerText = "No Spins Left";
         }
 
-    },5500);
+    },6000);
+}
+
+function showGift(text){
+    overlay.style.display="flex";
+    title.innerText="🎁 You Won";
+    msg.innerText=text;
 }
 
 function showFinal(){
-    document.body.innerHTML = `
-        <div style="text-align:center;color:white;">
-            <h1>🎉 CONGRATULATIONS 🎉</h1>
-            <h2>💎 PREMIUM GIFT UNLOCKED</h2>
-            <p style="font-size:18px;margin-top:20px;">
-            Adnan<br><br>
-            A special person who will stay, care, and support you in his own way 🤍
-            </p>
-        </div>
-    `;
-
+    overlay.style.display="flex";
+    title.innerText="🎉 CONGRATULATIONS 🎉";
+    msg.innerHTML=`
+💎 Premium Gift Unlocked<br><br>
+<b>Adnan</b><br><br>
+A special person who will stay, care, and support you in his own imperfect but real way 🤍
+`;
     launchConfetti();
 }
 
+/* REAL canvas confetti */
+const canvas = document.getElementById("confetti");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let pieces = [];
+
 function launchConfetti(){
-    for(let i=0;i<120;i++){
-        let d=document.createElement("div");
-        d.innerHTML="🎉";
-        d.style.position="fixed";
-        d.style.left=Math.random()*100+"vw";
-        d.style.top="-10px";
-        d.style.fontSize="18px";
-        d.style.animation="fall 3s linear";
-        document.body.appendChild(d);
-        setTimeout(()=>d.remove(),3000);
+    for(let i=0;i<150;i++){
+        pieces.push({
+            x:Math.random()*canvas.width,
+            y:-10,
+            r:Math.random()*6+2,
+            d:Math.random()*150,
+            color:`hsl(${Math.random()*360},100%,60%)`
+        });
     }
+    animate();
+}
+
+function animate(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    pieces.forEach(p=>{
+        ctx.beginPath();
+        ctx.fillStyle=p.color;
+        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fill();
+        p.y += 2 + p.r/2;
+    });
+
+    requestAnimationFrame(animate);
 }
 
 </script>
-
-<style>
-@keyframes fall{
-    to{
-        transform:translateY(110vh) rotate(360deg);
-        opacity:0;
-    }
-}
-</style>
 
 </body>
 </html>
