@@ -1,9 +1,8 @@
- 
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gift Boxes</title>
+<title>Gift Box Game</title>
 
 <style>
 body{
@@ -12,43 +11,121 @@ body{
     display:flex;
     justify-content:center;
     align-items:center;
-    background:#0f172a;
-    font-family:Arial;
+    background:radial-gradient(circle,#1e1b4b,#0f172a);
+    font-family:Poppins,Arial;
     color:white;
+    overflow:hidden;
 }
 
-/* container */
-.grid{
+/* APP CONTAINER */
+.app{
     width:90vw;
-    max-width:350px;
+    max-width:360px;
+    text-align:center;
+}
+
+h2{
+    margin-bottom:5px;
+}
+
+.sub{
+    font-size:12px;
+    color:#cbd5e1;
+    margin-bottom:20px;
+}
+
+/* GRID */
+.grid{
     display:grid;
     grid-template-columns:repeat(2,1fr);
-    gap:10px;
+    gap:12px;
 }
 
-/* boxes */
+/* BOX STYLE */
 .box{
     background:rgba(255,255,255,0.08);
     border:1px solid rgba(255,255,255,0.15);
-    padding:20px;
-    border-radius:12px;
-    text-align:center;
+    padding:18px;
+    border-radius:14px;
     cursor:pointer;
-    transition:0.3s;
-    font-size:14px;
+    transition:0.25s;
+    font-size:13px;
+    position:relative;
+    overflow:hidden;
 }
 
 .box:hover{
     transform:scale(1.05);
 }
 
-.opened{
-    background:#1e293b;
+.box.opened{
+    background:#1f2937;
+    cursor:default;
+}
+
+/* POPUP */
+.popup{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.85);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:20px;
+}
+
+.card{
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.2);
+    padding:22px;
+    border-radius:18px;
+    max-width:300px;
+    animation:pop 0.3s ease;
+}
+
+@keyframes pop{
+    from{transform:scale(0.7);opacity:0;}
+    to{transform:scale(1);opacity:1;}
+}
+
+.title{
+    font-size:20px;
+    margin-bottom:10px;
+}
+
+button{
+    margin-top:12px;
+    padding:10px 18px;
+    border:none;
+    border-radius:20px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+/* CONFETTI */
+.confetti{
+    position:fixed;
+    top:-10px;
+    font-size:18px;
+    animation:fall 3s linear forwards;
+}
+
+@keyframes fall{
+    to{
+        transform:translateY(110vh) rotate(360deg);
+        opacity:0;
+    }
 }
 </style>
 </head>
 
 <body>
+
+<div class="app">
+
+<h2>🎁 Gift Boxes</h2>
+<div class="sub">Tap to open each gift</div>
 
 <div class="grid">
 
@@ -58,11 +135,22 @@ body{
 <div class="box" onclick="openBox(this,'💍 Silver Ring')">🎁 Box 4</div>
 <div class="box" onclick="openBox(this,'🔑 Keychain')">🎁 Box 5</div>
 <div class="box" onclick="openBox(this,'🍗 Shawarma')">🎁 Box 6</div>
-<div class="box" onclick="openBox(this,'🤗 Hug')">🎁 Box 7</div>
-<div class="box" onclick="openBox(this,'🍫 Surprise Treat')">🎁 Box 8</div>
-<div class="box" onclick="openBox(this,'🌸 Cute Note')">🎁 Box 9</div>
-<div class="box" onclick="openBox(this,'💎 PREMIUM: Adnan')">🎉 FINAL BOX</div>
+<div class="box" onclick="openBox(this,'🤗 A Hug')">🎁 Box 7</div>
+<div class="box" onclick="openBox(this,'🍫 Sweet Surprise')">🎁 Box 8</div>
+<div class="box" onclick="openBox(this,'🌸 Cute Message')">🎁 Box 9</div>
+<div class="box" onclick="openBox(this,'💎 PREMIUM: ADNAN')">🎉 FINAL</div>
 
+</div>
+
+</div>
+
+<!-- POPUP -->
+<div class="popup" id="popup">
+    <div class="card">
+        <div class="title" id="title"></div>
+        <div id="msg"></div>
+        <button onclick="closePopup()">OK / CLAIM</button>
+    </div>
 </div>
 
 <script>
@@ -72,16 +160,48 @@ function openBox(el, gift){
     if(el.classList.contains("opened")) return;
 
     el.classList.add("opened");
-    el.innerHTML = gift;
+    el.innerText = gift;
+
+    showPopup(gift);
 
     if(gift.includes("PREMIUM")){
-        setTimeout(()=>{
-            alert("🎉 CONGRATULATIONS!\nYou unlocked Premium Gift: Adnan 💎");
-        },300);
+        launchConfetti();
+    }
+}
+
+function showPopup(gift){
+
+    document.getElementById("popup").style.display="flex";
+
+    if(gift.includes("PREMIUM")){
+        document.getElementById("title").innerHTML="🎉 CONGRATULATIONS";
+        document.getElementById("msg").innerHTML=
+        "💎 You unlocked Premium Gift<br><br><b>Adnan</b><br><br>A person who will always stay, care and support you in his own imperfect way 🤍";
+    }else{
+        document.getElementById("title").innerHTML="🎁 You Got";
+        document.getElementById("msg").innerHTML=gift;
+    }
+}
+
+function closePopup(){
+    document.getElementById("popup").style.display="none";
+}
+
+/* CONFETTI */
+function launchConfetti(){
+    for(let i=0;i<120;i++){
+        let d=document.createElement("div");
+        d.className="confetti";
+        d.innerHTML="🎉";
+        d.style.left=Math.random()*100+"vw";
+        d.style.fontSize=(12+Math.random()*10)+"px";
+        document.body.appendChild(d);
+
+        setTimeout(()=>d.remove(),3000);
     }
 }
 
 </script>
 
 </body>
-</html>
+</html> 
