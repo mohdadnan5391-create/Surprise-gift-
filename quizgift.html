@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gift Quiz</title>
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:radial-gradient(circle,#1e1b4b,#0f172a);
+    font-family:Arial;
+    color:white;
+}
+
+.app{
+    width:90vw;
+    max-width:360px;
+    text-align:center;
+}
+
+.question{
+    font-size:18px;
+    margin-bottom:20px;
+}
+
+.option{
+    background:rgba(255,255,255,0.1);
+    border:1px solid rgba(255,255,255,0.2);
+    padding:12px;
+    margin:10px 0;
+    border-radius:12px;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.option:hover{
+    transform:scale(1.03);
+}
+
+.popup{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.85);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.card{
+    background:rgba(255,255,255,0.1);
+    border:1px solid rgba(255,255,255,0.2);
+    padding:20px;
+    border-radius:15px;
+    max-width:300px;
+    text-align:center;
+}
+
+.title{
+    font-size:20px;
+    margin-bottom:10px;
+}
+
+button{
+    margin-top:12px;
+    padding:10px 18px;
+    border:none;
+    border-radius:20px;
+    font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<div class="question">
+❓ What would make you smile right now?
+</div>
+
+<div class="option" onclick="showGift('flowers')">💐 Something beautiful</div>
+<div class="option" onclick="showGift('chocolate')">🍫 Something sweet</div>
+<div class="option" onclick="showGift('letter')">🤍 Something emotional</div>
+<div class="option" onclick="showGift('teddy')">🤗 Something warm</div>
+
+</div>
+
+<!-- POPUP -->
+<div class="popup" id="popup">
+    <div class="card">
+        <div class="title" id="title"></div>
+        <div id="msg"></div>
+        <button onclick="closePopup()">OK</button>
+    </div>
+</div>
+
+<script>
+
+function showGift(type){
+
+    let title = "";
+    let msg = "";
+
+    if(type === "flowers"){
+        title = "💐 Flowers";
+        msg = "Real gift idea: A bouquet of fresh flowers 🌸";
+    }
+
+    if(type === "chocolate"){
+        title = "🍫 Sweet Surprise";
+        msg = "Real gift idea: A box of chocolates 🍫";
+    }
+
+    if(type === "letter"){
+        title = "💌 Emotional Gift";
+        msg = "Real gift idea: A handwritten letter from your heart 🤍";
+    }
+
+    if(type === "teddy"){
+        title = "🧸 Warm Gift";
+        msg = "Real gift idea: A cute teddy bear 🤗";
+    }
+
+    document.getElementById("title").innerHTML = title;
+    document.getElementById("msg").innerHTML = msg;
+    document.getElementById("popup").style.display = "flex";
+}
+
+function closePopup(){
+    document.getElementById("popup").style.display = "none";
+}
+
+</script>
+
+</body>
+</html>
